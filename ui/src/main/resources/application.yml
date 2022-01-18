@@ -1,0 +1,33 @@
+auth-server: http://localhost:8081/authserver
+resource-server: http://localhost:8082/resource
+server:
+  port: 8080
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: oauth2_client
+      client-secret: oauth2_client_secret
+      access-token-uri: ${auth-server}/oauth/token
+      user-authorization-uri: ${auth-server}/oauth/authorize
+      scope: read, write
+      authorized-grant-types: authorization_code
+    resource:
+      token-info-uri: ${auth-server}/oauth/check_token
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mybatis/mapper/*Mapper.xml
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  datasource:
+      name: mengka
+      url: jdbc:mysql://127.0.0.1:3306/mengka?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&allowMultiQueries=true
+      username: root
+      password: 544027354
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
